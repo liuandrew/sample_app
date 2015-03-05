@@ -1,5 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
+    render_to_string
   end
 
   def help
