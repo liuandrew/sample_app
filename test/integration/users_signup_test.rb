@@ -7,6 +7,9 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 			post users_path, user: {name: "", email: "user@invalid", password: "foo", password_confirmation: "bar"}
 		end
 		assert_template 'users/new'
+		assert_select 'div#error_explanation'
+		assert_select 'div.alert'
+		assert_select 'div.field_with_errors'
 	end
 
 	test "valid signup information" do
@@ -15,6 +18,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 			post_via_redirect users_path, user: {name: "Example User", email: "user@example.com", password: "password", password_confirmation: "password"}
 		end
 		assert_template 'users/show'
+		assert_not flash.empty?
 	end
   # test "the truth" do
   #   assert true
