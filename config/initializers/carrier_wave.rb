@@ -6,3 +6,5 @@ if Rails.env.production?
 			:aws_secret_access_key => ENV['CnPXXywfpxuD2wgu2HkL927Zd+bddVrSZO6rFdlL']
 		}
 		config.fog_directory = ENV['railsproductfirstbucket']
+	end
+end
