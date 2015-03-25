@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
 						format: {with: VALID_EMAIL_REGEX},
 						uniqueness: {case_sensitive: false}
 	validates :password, length: {minimum: 6}, allow_blank: true
+
+	has_many :microposts, dependent: :destroy
+
 	has_secure_password
 
 	def User.digest(string)
@@ -31,5 +34,9 @@ class User < ActiveRecord::Base
 	def authenticated?(remember_token)
 		return false if remember_digest.nil?
 		BCrypt::Password.new(remember_digest).is_password?(remember_token)
+	end
+
+	def feed
+		Micropost.where("user_id = ?", id)
 	end
 end
